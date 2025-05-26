@@ -59,6 +59,7 @@
     <Compile Include="SortComparison\SortingAlgorithms\BinaryTreeSort.cs" />
     <Compile Include="SortComparison\SortingAlgorithms\BubbleSort.cs" />
     <Compile Include="SortComparison\SortingAlgorithms\InsertionSort.cs" />
+    <Compile Include="SortComparison\SortingAlgorithms\ShellSort.cs" />
     <Compile Include="SortComparison\SortingList.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
