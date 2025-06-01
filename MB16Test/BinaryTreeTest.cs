@@ -14,6 +14,9 @@ namespace MB16Test
       // arrange
      var tree = GetTree(entries);
 
+      tree.TraverseMode = TraverseModeEnum.InOrder;
+      tree.DisplayMode = DisplayModeEnum.Hierarchical;
+
       // assert
       Assert.AreEqual(8, tree.Count);
       Debug.WriteLine(tree.ToString());
