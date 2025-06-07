@@ -39,7 +39,8 @@ namespace MB16Test
     }
 
     [TestMethod]
-    [DataRow(4, 2, 1, 3, 8, 6, 5, 7)]
+    //[DataRow(4, 2, 1, 3, 8, 6, 5, 7)]
+    [DataRow(5, 3, 2, 1, 4, 8, 6, 7)]
     public void Tree_Traverse_PreOrder(params int[] entries)
     {
       // arrange
@@ -47,7 +48,6 @@ namespace MB16Test
 
       // act
       tree.TraverseMode = TraverseModeEnum.PreOrder;
-      var cnt = tree.CountRec();
 
       // assert
       Debug.WriteLine(tree.ToString());
