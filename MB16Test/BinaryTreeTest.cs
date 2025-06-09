@@ -40,7 +40,7 @@ namespace MB16Test
 
     [TestMethod]
     //[DataRow(4, 2, 1, 3, 8, 6, 5, 7)]
-    [DataRow(5, 3, 2, 1, 4, 8, 6, 7)]
+    [DataRow(5, 3, 8, 2, 4, 1, 7, 6)]
     public void Tree_Traverse_PreOrder(params int[] entries)
     {
       // arrange
