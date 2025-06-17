@@ -20,7 +20,9 @@
       }
 
       // assert
-      Assert.AreEqual(12, heap.Peek());
+      var isValid = heap.Validate();
+      Assert.IsTrue(isValid);
+      Assert.AreEqual(10, heap.Peek());
       Debug.WriteLine(heap.ToString());
 
     }
@@ -33,6 +35,11 @@
       var heap = new MaxHeap();
 
       // act
+      foreach (var value in values)
+      {
+        heap.Enqueue(value);
+      }
+
       var element = heap.Dequeue();
 
 

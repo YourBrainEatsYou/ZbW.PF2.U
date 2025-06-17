@@ -8,7 +8,7 @@
   public class PriorityQueueTest
   {
     [TestMethod]
-    [DataRow(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)]
+    [DataRow(12, 1, 10, 3, 4, 11, 6, 7, 8, 2, 10, 5, 0)]
     public void Enqueue_MultipleValues_Success(params int[] values)
     {
       // arrange
@@ -19,8 +19,9 @@
       {
         queue.Enqueue(new QueueEntry(value, $"Todo-{value}"));
       }
-
-      Assert.AreEqual(12, queue.Peek().Priority);
+      var isValid = queue.Validate();
+      Assert.IsTrue(isValid);
+      Assert.AreEqual(0, queue.Peek().Priority);
       Debug.WriteLine(queue.ToString());
     }
 
@@ -38,6 +39,7 @@
       var entry = queue.Dequeue();
 
       Assert.AreEqual("Notfall", entry.Name);
+      Assert.AreEqual(1, entry.Priority);
       Debug.WriteLine(queue.ToString());
 
     }

@@ -8,23 +8,38 @@ namespace MB17
 
     public int Size { get; private set; }
 
-    private int Capacity { get; set; }
 
     public MaxHeap(int capacity = 16) 
     {
-      Capacity = capacity;
       _heap = new int[capacity];
       Size = 0;
     }
 
     public void Enqueue(int value)
     {
+      if (Size == _heap.Length)
+      {
+        Resize();
+      }
 
+      _heap[Size] = value;
+      HeapifyUp(Size);
+      Size++;
     }
 
     public int Dequeue()
     {
-      return _heap[0];
+      if (Size == 0)
+      {
+        throw new InvalidOperationException("Heap is empty");
+      }
+
+      var result = _heap[0];
+      Size--;
+      _heap[0] = _heap[Size];
+      _heap[Size] = 0;
+      HeapifyDown(0);
+      return result; 
     }
 
     public int Peek()
@@ -37,13 +52,71 @@ namespace MB17
       return _heap[0];
     }
 
+    public bool Validate()
+    {
+      for (var i = 0; i <= Size / 2 - 1; i++)
+      {
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left < Size && _heap[i] < _heap[left])
+        {
+          return false;
+        }
+
+        if (left < Size && _heap[i] < _heap[left])
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+
     private void HeapifyUp(int index)
     { 
+      while(index > 0)
+      {
+        var parentIndex = (index - 1) / 2;
+
+        var doMoveUp = _heap[index] > _heap[parentIndex];
+
+        if(!doMoveUp)
+        {
+          break;
+        }
+
+        Swap(index, parentIndex);
+
+        index = parentIndex;
+      }
     }
 
     private void HeapifyDown(int index)
     {
+      while (true)
+      {
+        var leftChildIndex = 2 * index + 1;
+        var rightChildIndex = 2 * index + 2;
+        var largestIndex = index;
 
+        if (leftChildIndex < Size && _heap[leftChildIndex] > _heap[largestIndex])
+        {
+          largestIndex = leftChildIndex;
+        }
+
+        if (rightChildIndex < Size && _heap[rightChildIndex] > _heap[largestIndex])
+        {
+          largestIndex = rightChildIndex;
+        }
+
+        if (largestIndex == index)
+        {
+          break;
+        }
+
+        Swap(index, largestIndex);
+        index = largestIndex;
+      }
     }
 
     private void Swap(int index, int parentIndex)
@@ -67,9 +140,9 @@ namespace MB17
 
       var sb = new StringBuilder();
 
-      foreach(int i in _heap)
+      for (var i = 0; i < Size; i++)
       {
-        sb.Append(i.ToString()).Append(" ");
+        sb.Append(_heap[i].ToString()).Append(" ");
       }
 
       return sb.ToString();
