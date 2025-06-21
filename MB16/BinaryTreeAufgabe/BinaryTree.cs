@@ -376,29 +376,50 @@ namespace MB16.BinaryTreeAufgabe
       var sb = new StringBuilder();
       int level = 0;
 
-      if(TraverseMode == TraverseModeEnum.LevelOrder)
-      {
-        var list = new List<Node<T>>();
-        LevelOrder(root, list);
+      //if(TraverseMode == TraverseModeEnum.LevelOrder)
+      //{
+      //  var list = new List<Node<T>>();
+      //  LevelOrder(root, list);
 
-        foreach(var node in list)
-        {
-          sb.Append(node.Item.ToString()).Append(" -> ");
-        }
-      }
-      else
-      {
-        Traverse(root, sb, level);
-      }
+      //  foreach(var node in list)
+      //  {
+      //    sb.Append(node.Item.ToString()).Append(" -> ");
+      //  }
+      //}
+      //else
+      //{
+      //  Traverse(root, sb, level);
+      //}
 
-      if(DisplayMode == DisplayModeEnum.Linear || TraverseMode == TraverseModeEnum.LevelOrder)
-      {
-        var output = sb.ToString();
-        output = output.Remove(output.LastIndexOf(" -> "));
-        return output;
-      }
-        
+      //if(DisplayMode == DisplayModeEnum.Linear || TraverseMode == TraverseModeEnum.LevelOrder)
+      //{
+      //  var output = sb.ToString();
+      //  output = output.Remove(output.LastIndexOf(" -> "));
+      //  return output;
+      //}
+
+      TraverseHierarchical(root, sb, level);
+
+
       return sb.ToString();
+    }
+
+    private void TraverseHierarchical(Node<T> node, StringBuilder sb, int level)
+    {
+      if (node != null)
+      {
+        if (level == 0)
+        {
+          sb.AppendLine($"{"".PadLeft(level, ' ')}{node.Item}");
+        }
+        else
+        {
+          sb.AppendLine($"{"".PadLeft(level, ' ')}|_{node.Item}");
+        }
+
+        TraverseHierarchical(node.Left, sb, level + 1);
+        TraverseHierarchical(node.Right, sb, level + 1);
+      }
     }
 
     private void Traverse(Node<T> node, StringBuilder sb, int level)

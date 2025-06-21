@@ -4,6 +4,22 @@ using System.Diagnostics;
 
 namespace MB16Test
 {
+  /// <summary>
+  /// Sample tree for most test is
+  /// 
+  ///           4
+  ///        /     \
+  ///       2       8
+  ///      / \     / 
+  ///     1   3   6
+  ///            / \
+  ///           5   7
+  /// 
+  /// PreOrder:   4,2,1,3,8,6,5,7
+  /// PostOrder:  1,3,2,5,7,6,8,4
+  /// InOrder:    1,2,3,4,5,6,7,8
+  /// LevelOrder: 4,2,8,1,3,6,5,7
+  /// </summary>
   [TestClass]
   public class BinaryTreeTest
   {
@@ -14,13 +30,17 @@ namespace MB16Test
       // arrange
      var tree = GetTree(entries);
 
+      tree.TraverseMode = TraverseModeEnum.InOrder;
+      tree.DisplayMode = DisplayModeEnum.Hierarchical;
+
       // assert
       Assert.AreEqual(8, tree.Count);
       Debug.WriteLine(tree.ToString());
     }
 
     [TestMethod]
-    [DataRow(4, 2, 1, 3, 8, 6, 5, 7)]
+    //[DataRow(4, 2, 1, 3, 8, 6, 5, 7)]
+    [DataRow(6,2,1,4,3,5,8,7,9)]
     public void Tree_Traverse_PreOrder(params int[] entries)
     {
       // arrange
@@ -81,7 +101,7 @@ namespace MB16Test
 
     [TestMethod]
     [DataRow(4, 2, 1, 3, 8, 6, 5, 7)]
-    public void Tree_FindNode_LevelOrder(params int[] entries)
+   public void Tree_FindNode_LevelOrder(params int[] entries)
     {
       // arrange
       var tree = GetTree(entries);
